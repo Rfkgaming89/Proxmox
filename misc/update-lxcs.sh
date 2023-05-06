@@ -45,11 +45,11 @@ function update_container() {
     alpine)  pct exec "$container" -- ash -c "apk update && apk upgrade" ;;
     archlinux)  pct exec "$container" -- bash -c "pacman -Syyu --noconfirm";;
     fedora|rocky|centos|alma)  pct exec "$container" -- bash -c "dnf -y update && dnf -y upgrade" ;;
-    ubuntu|debian|devuan)  pct exec "$container" -- bash -c "apt-get update && apt-get -y dist-upgrade" ;;
+    ubuntu|debian|devuan)  pct exec "$container" -- bash -c "apt-get update 2>/dev/null | grep 'packages.*upgraded'; apt list --upgradable && apt-get -y dist-upgrade" ;;
   esac
 }
 header_info
-for container in $(pct list | tail -n +2 | cut -f1 -d' '); do
+for container in $(pct list | awk '{if(NR>1) print $1}'); do
   excluded=false
   for excluded_container in "${excluded_containers[@]}"; do
     if [ "$container" == "$excluded_container" ]; then
