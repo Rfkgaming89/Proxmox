@@ -21,15 +21,15 @@ $STD apt-get install -y avahi-daemon
 $STD apt-get install -y gnupg2
 msg_ok "Installed Dependencies"
 
-msg_info "Setting up Homebridge Repository"
-curl -sSf https://repo.homebridge.io/KEY.gpg | gpg --dearmor >/etc/apt/trusted.gpg.d/homebridge.gpg
-echo 'deb [signed-by=/etc/apt/trusted.gpg.d/homebridge.gpg] https://repo.homebridge.io stable main' >/etc/apt/sources.list.d/homebridge.list
-msg_ok "Set up Homebridge Repository"
+msg_info "Setting up Fhem Repository"
+curl -sSf https://debian.fhem.de/archive.key | gpg --dearmor >/etc/apt/trusted.gpg.d/debianfhemde-archive-keyring.gpg
+echo 'deb [signed-by=/etc/apt/trusted.gpg.d/debianfhemde-archive-keyring.gpg] https://debian.fhem.de/nightly/ /' >/etc/apt/sources.list.d/fhem.list
+msg_ok "Set up Fhem Repository"
 
-msg_info "Installing Homebridge"
-$STD apt update
-$STD apt-get install -y homebridge
-msg_info "Installed Homebridge"
+msg_info "Installing Fhem"
+$STD apt-get update
+$STD apt-get install -y fhem
+msg_info "Installed Fhem"
 
 motd_ssh
 root

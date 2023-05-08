@@ -8,17 +8,17 @@ source <(curl -s https://raw.githubusercontent.com/tteck/Proxmox/main/misc/build
 function header_info {
 clear
 cat <<"EOF"
-   __  __      _ _____ 
-  / / / /__   (_) __(_)
- / / / / __ \/ / /_/ / 
-/ /_/ / / / / / __/ /  
-\____/_/ /_/_/_/ /_/   
- 
+    ________                 
+   / ____/ /_  ___  ____ ___ 
+  / /_  / __ \/ _ \/ __ `__ \
+ / __/ / / / /  __/ / / / / /
+/_/   /_/ /_/\___/_/ /_/ /_/ 
+                             
 EOF
 }
 header_info
 echo -e "Loading..."
-APP="Unifi"
+APP="Fhem"
 var_disk="8"
 var_cpu="2"
 var_ram="2048"
@@ -52,10 +52,10 @@ function default_settings() {
 
 function update_script() {
 header_info
-if [[ ! -d /usr/lib/unifi ]]; then msg_error "No ${APP} Installation Found!"; exit; fi
-msg_info "Updating ${APP}"
-apt-get update
-apt-get install -y unifi
+if [[ ! -f /etc/systemd/system/fhem.service ]]; then msg_error "No ${APP} Installation Found!"; exit; fi
+msg_info "Updating ${APP} LXC"
+apt-get update &>/dev/null
+apt-get -y upgrade &>/dev/null
 msg_ok "Updated Successfully"
 exit
 }
@@ -65,5 +65,5 @@ build_container
 description
 
 msg_ok "Completed Successfully!\n"
-echo -e "${APP}${CL} should be reachable by going to the following URL.
-         ${BL}https://${IP}:8443${CL} \n"
+echo -e "${APP} should be reachable by going to the following URL.
+         ${BL}http://${IP}:8083${CL} \n"
