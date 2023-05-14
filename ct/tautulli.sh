@@ -8,30 +8,29 @@ source <(curl -s https://raw.githubusercontent.com/tteck/Proxmox/main/misc/build
 function header_info {
 clear
 cat <<"EOF"
-    ____             __            __    _                 
-   / __ \____  _____/ /____  __   / /   (_)___  __  ___  __
-  / /_/ / __ \/ ___/ //_/ / / /  / /   / / __ \/ / / / |/_/
- / _, _/ /_/ / /__/ ,< / /_/ /  / /___/ / / / / /_/ />  <  
-/_/ |_|\____/\___/_/|_|\__, /  /_____/_/_/ /_/\__,_/_/|_|  
-                      /____/                               
- 
+  ______            __        _____
+ /_  __/___ ___  __/ /___  __/ / (_)
+  / / / __ `/ / / / __/ / / / / / / 
+ / / / /_/ / /_/ / /_/ /_/ / / / / 
+/_/  \__,_/\__,_/\__/\__,_/_/_/_/ 
+
 EOF
 }
 header_info
 echo -e "Loading..."
-APP="Rocky Linux"
-var_disk="1"
-var_cpu="1"
-var_ram="512"
-var_os="rockylinux"
-var_version="9"
+APP="Tautulli"
+var_disk="4"
+var_cpu="2"
+var_ram="1024"
+var_os="debian"
+var_version="11"
 variables
 color
 catch_errors
 
 function default_settings() {
   CT_TYPE="1"
-  PW="-password rockylinux"
+  PW=""
   CT_ID=$NEXTID
   HN=$NSAPP
   DISK_SIZE="$var_disk"
@@ -53,11 +52,11 @@ function default_settings() {
 
 function update_script() {
 header_info
-if [[ ! -d /etc/pacman.d ]]; then msg_error "No ${APP} Installation Found!"; exit; fi
-msg_info "Updating ${APP} LXC"
-dnf -y update
-dnf -y upgrade
-msg_ok "Updated Successfully"
+if [[ ! -d /opt/Tautulli/ ]]; then msg_error "No ${APP} Installation Found!"; exit; fi
+msg_info "Updating $APP LXC"
+apt-get update &>/dev/null
+apt-get -y upgrade &>/dev/null
+msg_ok "Updated $APP LXC"
 exit
 }
 
@@ -66,3 +65,5 @@ build_container
 description
 
 msg_ok "Completed Successfully!\n"
+echo -e "${APP} should be reachable by going to the following URL.
+         ${BL}http://${IP}:8181${CL} \n"
