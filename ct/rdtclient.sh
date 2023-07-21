@@ -8,22 +8,22 @@ source <(curl -s https://raw.githubusercontent.com/tteck/Proxmox/main/misc/build
 function header_info {
 clear
 cat <<"EOF"
-    ____  _______________  __      _       ____________ 
-   / __ \/ ___/_  __/ __ \/ /_____| |     / / ____/ __ )
-  / /_/ /\__ \ / / / /_/ / __/ __ \ | /| / / __/ / __  |
- / _, _/___/ // / / ____/ /_/ /_/ / |/ |/ / /___/ /_/ / 
-/_/ |_|/____//_/ /_/    \__/\____/|__/|__/_____/_____/  
-                                                        
+    ____             __    ____       __         _     __   ______                           __     _________            __
+   / __ \___  ____  / /   / __ \___  / /_  _____(_)___/ /  /_  __/___  _____________  ____  / /_   / ____/ (_)__  ____  / /_
+  / /_/ / _ \/ __ `/ /___/ / / / _ \/ __ \/ ___/ / __  /    / / / __ \/ ___/ ___/ _ \/ __ \/ __/  / /   / / / _ \/ __ \/ __/
+ / _, _/  __/ /_/ / /___/ /_/ /  __/ /_/ / /  / / /_/ /    / / / /_/ / /  / /  /  __/ / / / /_   / /___/ / /  __/ / / / /_
+/_/ |_|\___/\__,_/_/   /_____/\___/_.___/_/  /_/\__,_/    /_/  \____/_/  /_/   \___/_/ /_/\__/   \____/_/_/\___/_/ /_/\__/
+
 EOF
 }
 header_info
 echo -e "Loading..."
-APP="RSTPtoWEB"
+APP="RDTClient"
 var_disk="4"
-var_cpu="2"
-var_ram="2048"
+var_cpu="1"
+var_ram="1024"
 var_os="debian"
-var_version="11"
+var_version="12"
 variables
 color
 catch_errors
@@ -52,7 +52,7 @@ function default_settings() {
 
 function update_script() {
 header_info
-if [[ ! -d /var ]]; then msg_error "No ${APP} Installation Found!"; exit; fi
+if [[ ! -d /opt/rdtclient/ ]]; then msg_error "No ${APP} Installation Found!"; exit; fi
 msg_info "Updating $APP LXC"
 apt-get update &>/dev/null
 apt-get -y upgrade &>/dev/null
@@ -65,5 +65,5 @@ build_container
 description
 
 msg_ok "Completed Successfully!\n"
-echo -e "${APP} Setup should be reachable by going to the following URL.
-         ${BL}http://${IP}:8083 ${CL} \n"
+echo -e "${APP} should be reachable by going to the following URL.
+         ${BL}http://${IP}:6500${CL} \n"

@@ -20,8 +20,6 @@ $STD apt-get install -y mc
 msg_ok "Installed Dependencies"
 
 msg_info "Installing MariaDB"
-$STD bash <(curl -fsSL https://r.mariadb.com/downloads/mariadb_repo_setup)
-$STD apt-get update
 $STD apt-get install -y mariadb-server
 msg_ok "Installed MariaDB"
 
@@ -35,7 +33,7 @@ if [[ "${prompt,,}" =~ ^(y|yes)$ ]]; then
 fi
 
 motd_ssh
-root
+customize
 
 msg_info "Cleaning up"
 $STD apt-get autoremove

@@ -24,7 +24,7 @@ var_disk="8"
 var_cpu="2"
 var_ram="2048"
 var_os="debian"
-var_version="11"
+var_version="12"
 variables
 color
 catch_errors
@@ -80,6 +80,7 @@ function update_script() {
     cp -r /opt/paperless/paperless.conf paperless-ngx/
     cp -r paperless-ngx/* /opt/paperless/
     cd /opt/paperless
+    sed -i 's/scipy==1.8.1/scipy==1.10.1/g' requirements.txt
     sed -i -e 's|-e git+https://github.com/paperless-ngx/django-q.git|git+https://github.com/paperless-ngx/django-q.git|' /opt/paperless/requirements.txt
     pip install -r requirements.txt &>/dev/null
     cd /opt/paperless/src

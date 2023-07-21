@@ -1,6 +1,112 @@
 <a href="https://tteck.github.io/Proxmox/"><img src="https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api?username=tteck&theme=blue-green" height="130"/></a>
 # Change Log
-All notable changes to this project will be documented in this file.
+**All notable changes to this project will be documented in this file.**<br>
+
+- All LXC instances created using this repository come pre-installed with Midnight Commander, which is a command-line tool (`mc`) that offers a user-friendly file and directory management interface for the terminal environment.
+
+## 2023-07-18
+
+### Changed
+
+- **Proxmox VE Cron LXC Updater**
+  - NEW Script
+
+## 2023-07-11
+
+### Changed
+
+- **Scrypted LXC**
+  - Add VAAPI hardware transcoding
+
+## 2023-07-07
+
+### Changed
+
+- **Real-Debrid Torrent Client LXC**
+  - NEW Script
+
+## 2023-07-05
+
+### Changed
+
+- There have been more than 110 commits since June 18th, although not all of them are significant, with a majority focused on ensuring compatibility with Proxmox VE 8 and Debian 12.
+
+## 2023-06-18
+
+### Changed
+
+- **OpenObserve LXC**
+  - NEW Script
+
+## 2023-06-17
+
+### Changed
+
+- **UniFi Network Application LXC**
+  - Now distribution agnostic.
+- **Omada Controller LXC**
+  - Now distribution agnostic.
+## 2023-06-16
+
+### Changed
+
+- **Proxmox VE Monitor-All**
+  - Skip instances based on onboot and templates. [8c2a3cc](https://github.com/tteck/Proxmox/commit/8c2a3cc4d774fa13d17f695d6bdf9a4deedb1372). 
+
+## 2023-06-12
+
+### Changed
+
+- **Proxmox VE Edge Kernel**
+  - Removed, with the Proxmox opt-in kernels and the upcoming Proxmox Virtual Environment 8, edge kernels are no longer needed.
+- **Proxmox VE Kernel Clean**
+  - Now compatible with PVE8.
+
+## 2023-06-11
+
+### Changed
+
+- **Proxmox VE Post Install**
+  - Now compatible with both Proxmox Virtual Environment 7 (PVE7) and Proxmox Virtual Environment 8 (PVE8). 
+
+## 2023-06-02
+
+### Changed
+
+- **Proxmox VE 7 Post Install**
+  - In a non-clustered environment, you can choose to disable high availability, which helps save system resources.
+
+## 2023-05-27
+
+### Changed
+
+- **Proxmox VE 7 Post Install**
+  - If an Intel N-series processor is detected, ~the script provides options to install both the Proxmox 6.2 kernel and the Intel microcode.~ and using PVE7, recommend using PVE8
+
+## 2023-05-23
+
+### Changed
+
+- **OpenWrt VM**
+  - NEW Script
+
+## 2023-05-17
+
+### Changed
+
+- **Alpine-AdGuard Home LXC**
+  - Removed, it wasn't installed through the Alpine package manager.
+- **Alpine-Whoogle LXC**
+  - Removed, it wasn't installed through the Alpine package manager.
+
+## 2023-05-16
+
+### Changed
+
+- **Proxmox VE LXC Updater**
+  - Add information about the boot disk, which provides an easy way to determine if you need to expand the disk.
+- **Proxmox VE Processor Microcode**
+  - [Intel microcode-20230512 Release](https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files/releases/tag/microcode-20230512)
 
 ## 2023-05-13
 

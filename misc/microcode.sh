@@ -56,15 +56,15 @@ intel() {
   msg_ok "Installed iucode-tool"
   
   msg_info "Downloading the latest Intel Processor Microcode Package for Linux"
-  wget -q http://ftp.debian.org/debian/pool/non-free-firmware/i/intel-microcode/intel-microcode_3.20230214.1_amd64.deb
+  wget -q http://ftp.debian.org/debian/pool/non-free-firmware/i/intel-microcode/intel-microcode_3.20230512.1_amd64.deb
   msg_ok "Downloaded the latest Intel Processor Microcode Package"
 
   msg_info "Installing the Intel Processor Microcode (Patience)"
-  dpkg -i intel-microcode_3.20230214.1_amd64.deb &>/dev/null
+  dpkg -i intel-microcode_3.20230512.1_amd64.deb &>/dev/null
   msg_ok "Installed the Intel Processor Microcode"
 
   msg_info "Cleaning up"
-  rm intel-microcode_3.20230214.1_amd64.deb
+  rm intel-microcode_3.20230512.1_amd64.deb
   msg_ok "Cleaned"
   
   echo -e "\n To apply the changes, the system will need to be rebooted.\n"
@@ -86,15 +86,13 @@ amd() {
   echo -e "\n To apply the changes, the system will need to be rebooted.\n"
 }
 
-if [ $(pveversion | grep -c "pve-manager/7\.[0-9]") -eq 0 ]; then
-  echo -e "${CROSS} Proxmox Virtual Environment Not Detected"
-  echo -e "Exiting..."
-  sleep 2
+if ! command -v pveversion >/dev/null 2>&1; then
+  header_info
+  msg_error "\n No PVE Detected!\n"
   exit
 fi
-
 msg_info "Checking CPU Vendor"
-cpu=$(lscpu | grep -oP 'Vendor ID:\s*\K\S+')
+cpu=$(lscpu | grep -oP 'Vendor ID:\s*\K\S+' | head -n 1)
 if [ "$cpu" == "GenuineIntel" ]; then
   msg_ok "${cpu} was detected"
   intel

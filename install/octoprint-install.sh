@@ -21,14 +21,16 @@ $STD apt-get install -y git
 $STD apt-get install -y libyaml-dev
 $STD apt-get install -y build-essential
 msg_ok "Installed Dependencies"
-  
-msg_info "Installing Python3"
+
+msg_info "Updating Python3"
 $STD apt-get install -y \
-	python3-pip \
-	python3-dev \
-	python3-setuptools \
-	python3-venv
-msg_ok "Installed Python3"  
+  python3 \
+  python3-dev \
+  python3-pip \
+  python3-venv
+
+$STD apt-get install -y python3-setuptools
+msg_ok "Updated Python3"
 
 msg_info "Creating user octoprint"
 useradd -m -s /bin/bash -p $(openssl passwd -1 octoprint) octoprint
@@ -69,7 +71,7 @@ systemctl enable -q --now octoprint.service
 msg_ok "Created Service"
 
 motd_ssh
-root
+customize
 
 msg_info "Cleaning up"
 $STD apt-get autoremove

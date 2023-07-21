@@ -5,7 +5,7 @@
 # License: MIT
 # https://github.com/tteck/Proxmox/raw/main/LICENSE
 
-source /dev/stdin <<< "$FUNCTIONS_FILE_PATH"
+source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
 verb_ip6
 catch_errors
@@ -15,52 +15,52 @@ update_os
 
 msg_info "Installing Python3"
 $STD apt-get install -y --no-install-recommends \
-	python3 \
-	python3-pip \
-	python3-dev \
-	python3-setuptools \
-	python3-wheel 
+  python3 \
+  python3-pip \
+  python3-dev \
+  python3-setuptools \
+  python3-wheel
 msg_ok "Installed Python3"
 
 msg_info "Installing Dependencies (Patience)"
 $STD apt-get install -y --no-install-recommends \
-	redis \
-	postgresql \
-	build-essential \
-        imagemagick \
-	fonts-liberation \
-	optipng \
-	gnupg \
-	libpq-dev \
-	libmagic-dev \
-	mime-support \
-	libzbar0 \
-	poppler-utils \
-	default-libmysqlclient-dev \
-	automake \
-	libtool \
-	pkg-config \
-	git \
-	curl \
-	libtiff-dev \
-	libpng-dev \
-	libleptonica-dev \
-	sudo \
-	mc
+  redis \
+  postgresql \
+  build-essential \
+  imagemagick \
+  fonts-liberation \
+  optipng \
+  gnupg \
+  libpq-dev \
+  libmagic-dev \
+  mime-support \
+  libzbar0 \
+  poppler-utils \
+  default-libmysqlclient-dev \
+  automake \
+  libtool \
+  pkg-config \
+  git \
+  curl \
+  libtiff-dev \
+  libpng-dev \
+  libleptonica-dev \
+  sudo \
+  mc
 msg_ok "Installed Dependencies"
 
 msg_info "Installing OCR Dependencies (Patience)"
 $STD apt-get install -y --no-install-recommends \
-	unpaper \
-	ghostscript \
-	icc-profiles-free \
-	qpdf \
-	liblept5 \
-	libxml2 \
-	pngquant \
-	zlib1g \
-	tesseract-ocr \
-	tesseract-ocr-eng
+  unpaper \
+  ghostscript \
+  icc-profiles-free \
+  qpdf \
+  liblept5 \
+  libxml2 \
+  pngquant \
+  zlib1g \
+  tesseract-ocr \
+  tesseract-ocr-eng
 msg_ok "Installed OCR Dependencies"
 
 msg_info "Installing JBIG2"
@@ -76,11 +76,12 @@ msg_ok "Installed JBIG2"
 msg_info "Installing Paperless-ngx (Patience)"
 Paperlessngx=$(wget -q https://github.com/paperless-ngx/paperless-ngx/releases/latest -O - | grep "title>Release" | cut -d " " -f 5)
 cd /opt
-$STD wget https://github.com/paperless-ngx/paperless-ngx/releases/download/$Paperlessngx/paperless-ngx-$Paperlessngx.tar.xz 
+$STD wget https://github.com/paperless-ngx/paperless-ngx/releases/download/$Paperlessngx/paperless-ngx-$Paperlessngx.tar.xz
 $STD tar -xf paperless-ngx-$Paperlessngx.tar.xz -C /opt/
 mv paperless-ngx paperless
 rm paperless-ngx-$Paperlessngx.tar.xz
 cd /opt/paperless
+sed -i 's/scipy==1.8.1/scipy==1.10.1/g' requirements.txt
 ## python 3.10+ doesn't like the '-e', so we remove it from this the requirements file
 sed -i -e 's|-e git+https://github.com/paperless-ngx/django-q.git|git+https://github.com/paperless-ngx/django-q.git|' /opt/paperless/requirements.txt
 $STD pip install --upgrade pip
@@ -192,7 +193,7 @@ $STD systemctl enable --now paperless-consumer paperless-webserver paperless-sch
 msg_ok "Created Services"
 
 motd_ssh
-root
+customize
 
 msg_info "Cleaning up"
 $STD apt-get autoremove
